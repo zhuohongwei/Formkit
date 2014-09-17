@@ -19,6 +19,10 @@
 		EFAB744319C92B720040D89A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB742B19C92B720040D89A /* UIKit.framework */; };
 		EFAB744B19C92B720040D89A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFAB744919C92B720040D89A /* InfoPlist.strings */; };
 		EFAB744D19C92B720040D89A /* FormKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB744C19C92B720040D89A /* FormKitTests.m */; };
+		EFAB745819C92CD40040D89A /* FKFormItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB745719C92CD40040D89A /* FKFormItem.m */; };
+		EFAB745919C92CD40040D89A /* FKFormItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB745719C92CD40040D89A /* FKFormItem.m */; };
+		EFAB745C19C92D180040D89A /* FKFormItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB745B19C92D180040D89A /* FKFormItemView.m */; };
+		EFAB745D19C92D180040D89A /* FKFormItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB745B19C92D180040D89A /* FKFormItemView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		EFAB744819C92B720040D89A /* FormKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FormKitTests-Info.plist"; sourceTree = "<group>"; };
 		EFAB744A19C92B720040D89A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EFAB744C19C92B720040D89A /* FormKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormKitTests.m; sourceTree = "<group>"; };
+		EFAB745619C92CD40040D89A /* FKFormItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKFormItem.h; sourceTree = "<group>"; };
+		EFAB745719C92CD40040D89A /* FKFormItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKFormItem.m; sourceTree = "<group>"; };
+		EFAB745A19C92D180040D89A /* FKFormItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKFormItemView.h; sourceTree = "<group>"; };
+		EFAB745B19C92D180040D89A /* FKFormItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKFormItemView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +119,10 @@
 				EFAB743719C92B720040D89A /* FKAppDelegate.m */,
 				EFAB743919C92B720040D89A /* Images.xcassets */,
 				EFAB742E19C92B720040D89A /* Supporting Files */,
+				EFAB745619C92CD40040D89A /* FKFormItem.h */,
+				EFAB745719C92CD40040D89A /* FKFormItem.m */,
+				EFAB745A19C92D180040D89A /* FKFormItemView.h */,
+				EFAB745B19C92D180040D89A /* FKFormItemView.m */,
 			);
 			path = FormKit;
 			sourceTree = "<group>";
@@ -240,7 +252,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFAB745819C92CD40040D89A /* FKFormItem.m in Sources */,
 				EFAB743419C92B720040D89A /* main.m in Sources */,
+				EFAB745C19C92D180040D89A /* FKFormItemView.m in Sources */,
 				EFAB743819C92B720040D89A /* FKAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFAB744D19C92B720040D89A /* FormKitTests.m in Sources */,
+				EFAB745D19C92D180040D89A /* FKFormItemView.m in Sources */,
+				EFAB745919C92CD40040D89A /* FKFormItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
