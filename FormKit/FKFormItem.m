@@ -51,20 +51,20 @@
     return [self.parent rootItem];
 }
 
--(FKInputItem *)itemNamed:(NSString *)name {
+-(FKInputItem *)inputItemNamed:(NSString *)name {
     return nil;
 }
 
--(id)valueForItemNamed:(NSString *)name {
-    FKInputItem *inputItem = [self itemNamed:name];
+-(id)valueForInputItemNamed:(NSString *)name {
+    FKInputItem *inputItem = [self inputItemNamed:name];
     if (inputItem) {
         return inputItem.value;
     }
     return nil;
 }
 
--(void)setValue:(id)value forItemNamed:(NSString *)name {
-    FKInputItem *inputItem = [self itemNamed:name];
+-(void)setValue:(id)value forInputItemNamed:(NSString *)name {
+    FKInputItem *inputItem = [self inputItemNamed:name];
     if (inputItem) {
         inputItem.value = value;
     }
@@ -170,10 +170,10 @@
     return form;
 }
 
--(FKInputItem *)itemNamed:(NSString *)name {
+-(FKInputItem *)inputItemNamed:(NSString *)name {
     FKInputItem *item = nil;
     for (FKRowItem *row in _rows) {
-        if ((item = [row itemNamed:name])) {
+        if ((item = [row inputItemNamed:name])) {
             return item;
         }
     }
@@ -279,10 +279,10 @@ static const CGFloat kRatioNotSpecified = -1;
     return row;
 }
 
--(FKInputItem *)itemNamed:(NSString *)name {
+-(FKInputItem *)inputItemNamed:(NSString *)name {
     FKInputItem *item = nil;
     for (FKColumnItem *column in _columns) {
-        if ((item = [column itemNamed:name])) {
+        if ((item = [column inputItemNamed:name])) {
             return item;
         }
     }
@@ -394,8 +394,8 @@ static const CGFloat kRatioNotSpecified = -1;
     return columnView;
 }
 
--(FKInputItem *)itemNamed:(NSString *)name {
-    return [self.item itemNamed:name];
+-(FKInputItem *)inputItemNamed:(NSString *)name {
+    return [self.item inputItemNamed:name];
 }
 
 -(CGFloat)heightForWidth:(CGFloat)width {
@@ -438,7 +438,7 @@ static const CGFloat kRatioNotSpecified = -1;
     return [view heightForWidth:width];
 }
 
--(FKInputItem *)itemNamed:(NSString *)name {
+-(FKInputItem *)inputItemNamed:(NSString *)name {
     return [self.name isEqualToString:name]?self:nil;
 }
 

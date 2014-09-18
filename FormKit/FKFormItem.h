@@ -15,14 +15,14 @@
 -(FKFormItemView *)view;
 -(CGFloat)heightForWidth:(CGFloat)width;
 -(FKFormItem *)rootItem;
--(FKInputItem *)itemNamed:(NSString *)name;
--(id)valueForItemNamed:(NSString *)name;
+-(NSArray *)allInputItems;
+-(FKInputItem *)inputItemNamed:(NSString *)name;
+-(id)valueForInputItemNamed:(NSString *)name;
 -(void)setValue:(id)value forItemNamed:(NSString *)name;
--(void)layout;
--(void)reload;
 -(NSDictionary *)allValues;
 -(void)setValues:(NSDictionary *)values;
--(NSArray *)allInputItems;
+-(void)layout;
+-(void)reload;
 @end
 
 
@@ -80,7 +80,6 @@
 
 
 @interface FKSelectFieldItem: FKInputItem
-//value of control refers to selected KEY value;
 @property (nonatomic, strong) NSDictionary *keyAndDisplayValues;
 @property (nonatomic, strong) NSArray *sortedKeyValues;
 -(NSString *)displayValue;
