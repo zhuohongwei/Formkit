@@ -19,8 +19,9 @@
 
 @interface FKFormResultViewController : UIViewController
 
-@property (nonatomic) BOOL disableBackButton;
+@property (nonatomic, assign) BOOL disableBackButton;
 @property (nonatomic, weak) id<FKFormResultViewControllerDelegate> delegate;
+
 -(void)setImage:(UIImage *)image andMessage:(NSAttributedString *)message;
 
 @end

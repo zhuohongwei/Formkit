@@ -85,6 +85,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _disableBackButton = NO;
     }
     return self;
 }
@@ -101,32 +102,18 @@
     [_layoutView setNeedsLayout];
 }
 
-- (void)createOrClearBackButton {
-    if (!_disableBackButton)
-    {
-        UIBarButtonItem *backButton = [UIHelpers backButtonWithTarget:self action:@selector(back:)];
-        self.navigationItem.leftBarButtonItem = backButton;
-    }
-    else
-    {
-        self.navigationItem.leftBarButtonItem = nil;
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self createOrClearBackButton];
-    
-    UIBarButtonItem *dismissButton = [UIHelpers barButtonWithTitle:@"Close" target:self action:@selector(dismiss:)];
+    UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = dismissButton;
-    
-    self.navigationItem.hidesBackButton = YES;
+
+    self.navigationItem.hidesBackButton = _disableBackButton;
 }
 
 - (void)setDisableBackButton:(BOOL)disableBackButton {
     _disableBackButton = disableBackButton;
-    [self createOrClearBackButton];
+    self.navigationItem.hidesBackButton = _disableBackButton;
 }
 
 -(void)setImage:(UIImage *)image  andMessage:(NSAttributedString *)message {
@@ -148,10 +135,6 @@
     } else {
         [self.navigationController dismissViewControllerAnimated:NO completion:nil];
     }
-}
-
-- (void)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

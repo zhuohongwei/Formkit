@@ -10,4 +10,9 @@
 
 @implementation UIView (FKAdditions)
 
++(UIView *)frostedGlassInView:(UIView *)view {
+    //TODO
+    return nil;
+}
+
 @end

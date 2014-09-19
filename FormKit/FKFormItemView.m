@@ -9,10 +9,10 @@
 #import "FKFormItemView.h"
 #import "FKFormItem.h"
 
-#define kBorderColor        [UIColor colorWithWhite:0.78 alpha:1.0]
-#define kPlaceholderColor   [UIColor colorWithWhite:0.78 alpha:1.0]
-#define kDisabledLabelColor [UIColor colorWithWhite:0.78 alpha:1.0];
-#define kNormalLabelColor   [UIColor colorWithRed:0.36 green:0.64 blue:0.9 alpha:1.0];
+#define kBorderColor        [UIColor colorWithWhite:0.78f alpha:1.f]
+#define kPlaceholderColor   [UIColor colorWithWhite:0.78f alpha:1.f]
+#define kDisabledLabelColor [UIColor colorWithWhite:0.78f alpha:1.f];
+#define kNormalLabelColor   [UIColor colorWithRed:0.36f green:0.64f blue:0.9f alpha:1.f];
 
 @implementation FKFormItemView
 

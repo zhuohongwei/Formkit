@@ -11,8 +11,8 @@
 @class FKSelectFieldItem;
 @interface FKFormSelectViewController : UITableViewController
 
--(id)initWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
-
 @property (nonatomic, assign) BOOL allowSearching;
+
+-(id)initWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
 
 @end

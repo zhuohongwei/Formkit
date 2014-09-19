@@ -11,32 +11,17 @@
 
 @interface FKFormSelectViewController () <UISearchBarDelegate, UISearchDisplayDelegate> {
     FKSelectFieldItem *_selectFieldItem;
-    NSArray * _sortedKeyValues;
+    NSArray *_sortedKeyValues;
     
-    UISearchBar * _searchBar;
-    UISearchDisplayController * _searchDisplayController;
-    NSMutableArray * _searchKeyValues;
+    UISearchBar *_searchBar;
+    UISearchDisplayController *_searchDisplayController;
+    NSMutableArray *_searchKeyValues;
 }
-
--(void)back:(id)sender;
 
 @end
 
 @implementation FKFormSelectViewController
 
--(void)deriveSortedKeyValues
-{
-    NSMutableDictionary * reverseMap = [NSMutableDictionary dictionary];
-    for (NSString * key in _selectFieldItem.keyAndDisplayValues)
-    {
-        reverseMap[_selectFieldItem.keyAndDisplayValues[key]] = key;
-    }
-    
-    NSArray * sortedLabels = [[reverseMap allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSMutableArray * sortedKeyValues = [NSMutableArray array];
-    for (NSString * key in sortedLabels) [sortedKeyValues addObject:reverseMap[key]];
-    _sortedKeyValues = sortedKeyValues;
-}
 -(id)initWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
@@ -51,24 +36,39 @@
     return self;
 }
 
+-(void)deriveSortedKeyValues {
+    NSMutableDictionary * reverseMap = [NSMutableDictionary dictionary];
+    for (NSString * key in _selectFieldItem.keyAndDisplayValues) {
+        reverseMap[_selectFieldItem.keyAndDisplayValues[key]] = key;
+    }
+    
+    NSArray * sortedLabels = [[reverseMap allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    NSMutableArray * sortedKeyValues = [NSMutableArray array];
+    for (NSString * key in sortedLabels) [sortedKeyValues addObject:reverseMap[key]];
+    _sortedKeyValues = sortedKeyValues;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *backButton = [UIHelpers barButtonWithTitle:@"Back" target:self action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButton;
-    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 38)];
-    _searchBar.backgroundImage = [UIImage imageNamed:@"bg_searchbar"];
-    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"bg_searchbar_textfield"] forState:UIControlStateNormal];
     _searchBar.delegate = self;
     
-    _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    _searchDisplayController =
+        [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDisplayController.delegate = self;
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
     
     if (_allowSearching) {
         self.tableView.tableHeaderView = _searchBar;
+    }
+}
+
+-(void)didMoveToParentViewController:(UIViewController *)parent {
+    if (!parent) {
+        FKForm *form = (FKForm *)_selectFieldItem.rootItem;
+        [form defocusItem:(FKInputItem *)_selectFieldItem];
     }
 }
 
@@ -90,7 +90,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     if (tableView == self.tableView) {
         if (_selectFieldItem && _sortedKeyValues) {
             return _sortedKeyValues.count;
@@ -98,12 +97,11 @@
     } else if (tableView == _searchDisplayController.searchResultsTableView) {
         return _searchKeyValues.count;
     }
-    
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"Cell";
     
     NSArray *keyValues = (tableView == self.tableView)? _sortedKeyValues:_searchKeyValues;
     id keyValue = [keyValues objectAtIndex:indexPath.row];
@@ -111,17 +109,15 @@
     NSString *displayValue = [_selectFieldItem.keyAndDisplayValues objectForKey:keyValue];
     displayValue = displayValue?displayValue:@"";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-        
-        //        cell.textLabel.highlightedTextColor = [UIColor grayColor];
-        
+    
         UIView *selectedBackgroundView = [UIView new];
-        selectedBackgroundView.backgroundColor = mRgb(0xea, 0xea, 0xea);
+        selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
         cell.selectedBackgroundView = selectedBackgroundView;
     }
     
@@ -144,7 +140,8 @@
     NSArray *keyValues = (tableView == self.tableView)? _sortedKeyValues:_searchKeyValues;
     id keyValue = [keyValues objectAtIndex:indexPath.row];
     
-    if (!_selectFieldItem.value || (keyValue && _selectFieldItem.value && ![keyValue isEqual:_selectFieldItem.value])) {
+    if (!_selectFieldItem.value
+        || (keyValue && _selectFieldItem.value && ![keyValue isEqual:_selectFieldItem.value])) {
         _selectFieldItem.value = keyValue;
         [_selectFieldItem reload];
         
@@ -156,25 +153,17 @@
         selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         FKForm *form = (FKForm *)_selectFieldItem.rootItem;
-        [form valueChangedForItem:(ISInputItem *)_selectFieldItem];
+        [form valueChangedForItem:(FKInputItem *)_selectFieldItem];
         
         [self.navigationController popViewControllerAnimated:YES];
     }
-}
-
-#pragma mark - private methods
-
--(void)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    FKForm *form = (FKForm *)_selectFieldItem.rootItem;
-    [form defocusItem:(ISInputItem *)_selectFieldItem];
 }
 
 #pragma mark - UISearchDelegate & UISearchDisplayDelegate
 
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView {
     UITableView *searchResultsTableView =  _searchDisplayController.searchResultsTableView;
-    searchResultsTableView.backgroundColor = mRgb(0xf8, 0xf8, 0xfa);
+    searchResultsTableView.backgroundColor = [UIColor whiteColor];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {

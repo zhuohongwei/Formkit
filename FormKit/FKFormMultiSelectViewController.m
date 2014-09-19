@@ -20,8 +20,6 @@
     NSMutableArray *_searchKeyValues;
 }
 
--(void)back:(id)sender;
-
 @end
 
 @implementation FKFormMultiSelectViewController
@@ -51,12 +49,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *backButton = [UIHelpers barButtonWithTitle:@"Back" target:self action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButton;
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 38)];
-    _searchBar.backgroundImage = [UIImage imageNamed:@"bg_searchbar"];
-    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"bg_searchbar_textfield"] forState:UIControlStateNormal];
     _searchBar.delegate = self;
     
     _searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
@@ -66,6 +60,13 @@
     
     if (_allowSearching) {
         self.tableView.tableHeaderView = _searchBar;
+    }
+}
+
+-(void)didMoveToParentViewController:(UIViewController *)parent {
+    if (!parent) {
+        FKForm *form = (FKForm *)_multiSelectFieldItem.rootItem;
+        [form defocusItem:(FKInputItem *)_multiSelectFieldItem];
     }
 }
 
@@ -124,10 +125,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
         
-        //        cell.textLabel.highlightedTextColor = [UIColor grayColor];
-        
         UIView *selectedBackgroundView = [UIView new];
-        selectedBackgroundView.backgroundColor = mRgb(0xea, 0xea, 0xea);
+        selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
         cell.selectedBackgroundView = selectedBackgroundView;
     }
     
@@ -158,7 +157,6 @@
         
     } else {
         _selectedRowFlags[keyValue] = @(YES);
-        
     }
     
     NSArray *selectedKeyValues = _selectedRowFlags.allKeys;
@@ -166,23 +164,14 @@
     
     [tableView reloadData];
     FKForm *form = (FKForm *)_multiSelectFieldItem.rootItem;
-    [form valueChangedForItem:(ISInputItem *)_multiSelectFieldItem];
-}
-
-#pragma mark - private methods
-
--(void)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    FKForm *form = (FKForm *)_multiSelectFieldItem.rootItem;
-    [form defocusItem:(ISInputItem *)_multiSelectFieldItem];
+    [form valueChangedForItem:(FKInputItem *)_multiSelectFieldItem];
 }
 
 #pragma mark - UISearchDelegate & UISearchDisplayDelegate
 
 -(void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView {
     UITableView *searchResultsTableView =  _searchDisplayController.searchResultsTableView;
-    searchResultsTableView.backgroundColor = mRgb(0xf8, 0xf8, 0xfa);
+    searchResultsTableView.backgroundColor = [UIColor whiteColor];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
