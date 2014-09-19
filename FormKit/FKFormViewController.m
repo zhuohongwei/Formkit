@@ -106,7 +106,12 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self setupNavigation];
+    
+    if (!_form) {
+        return;
+    }
+    
+    [self setupNavigationItem];
 }
 
 -(UIBarButtonItem *)submitButton {
@@ -137,32 +142,35 @@
 -(void)setForm:(FKForm *)form {
     _form = form;
     
-    if (!_form.delegate) {
+    if (_form && !_form.delegate) {
         _form.delegate = self;
     }
     
-    if (self.isViewLoaded && _form) {
-        FKFormView *formView = (FKFormView *) [_form createView];
-        [_layoutView setFormView:formView];
+    if (self.isViewLoaded) {
+        [_layoutView setFormView:nil];
         [_layoutView setNeedsLayout];
-        
-        _cancelButton = nil;
-        _submitButton = nil;
-        _deleteButton = nil;
         
         self.navigationItem.title = nil;
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItems = @[];
         
-        [self setupNavigation];
+        _cancelButton = nil;
+        _submitButton = nil;
+        _deleteButton = nil;
+        
+        if (!_form) {
+            return;
+        }
+        
+        FKFormView *formView = (FKFormView *) [_form createView];
+        [_layoutView setFormView:formView];
+        [_layoutView setNeedsLayout];
+        
+        [self setupNavigationItem];
     }
 }
 
--(void)setupNavigation {
-    if (!_form) {
-        return;
-    }
-    
+-(void)setupNavigationItem {
     self.navigationItem.title = _form.title;
     self.navigationItem.leftBarButtonItem = self.cancelButton;
     
