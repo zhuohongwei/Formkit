@@ -14,12 +14,14 @@
 @interface FKFormViewController : UIViewController <FKFormDelegate>
 
 @property (nonatomic, strong) FKForm *form;
-@property (nonatomic, readonly) UIBarButtonItem * submitButton;
-@property (nonatomic, readonly) UIBarButtonItem * cancelButton;
-@property (nonatomic, readonly) UIBarButtonItem * deleteButton;
+@property (nonatomic, readonly) UIBarButtonItem *submitButton;
+@property (nonatomic, readonly) UIBarButtonItem *cancelButton;
+@property (nonatomic, readonly) UIBarButtonItem *deleteButton;
 
+/*
 -(void)overlayMessage:(NSString *)message;
 -(void)removeOverlay;
+*/
 
 -(void)presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
 -(void)presentSuccessMessage:(NSAttributedString *)message;
@@ -29,7 +31,7 @@
 //Methods to override in subclass, do not call directly
 -(void)cancel:(id)sender;
 -(void)submit:(id)sender;
-
+-(void)delete:(id)sender;
 
 @end
 

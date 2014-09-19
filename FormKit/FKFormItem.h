@@ -18,7 +18,7 @@
 -(NSArray *)allInputItems;
 -(FKInputItem *)inputItemNamed:(NSString *)name;
 -(id)valueForInputItemNamed:(NSString *)name;
--(void)setValue:(id)value forItemNamed:(NSString *)name;
+-(void)setValue:(id)value forInputItemNamed:(NSString *)name;
 -(NSDictionary *)allValues;
 -(void)setValues:(NSDictionary *)values;
 -(void)layout;
@@ -36,12 +36,17 @@
 -(void)form:(FKForm *)form valueDidChangedForItem:(FKInputItem *)item;
 @end
 
-
+typedef NS_OPTIONS(NSUInteger, FKFormPurpose) {
+    FKFormPurposeCreate = 1 << 0,
+    FKFormPurposeUpdate = 1 << 1,
+    FKFormPurposeDelete = 1 << 2,
+};
 @interface FKForm : FKFormItem
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *cancelLabel;
 @property (nonatomic, copy) NSString *submitLabel;
 @property (nonatomic, copy) NSString *deleteLabel;
+@property (nonatomic, assign) FKFormPurpose purpose;
 @property (nonatomic, strong, readonly) FKInputItem *focus;
 @property (nonatomic, weak) id<FKFormDelegate> delegate;
 

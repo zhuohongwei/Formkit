@@ -46,9 +46,17 @@
     return [FKFormItemView new];
 }
 
+-(CGFloat)heightForWidth:(CGFloat)width {
+    return 0;
+}
+
 -(FKFormItem *)rootItem {
     if (!self.parent) return self;
     return [self.parent rootItem];
+}
+
+-(NSArray *)allInputItems {
+    return [self allInputItemsUsingAccumulator:[NSMutableArray array]];
 }
 
 -(FKInputItem *)inputItemNamed:(NSString *)name {
@@ -70,23 +78,8 @@
     }
 }
 
--(void)layout {
-}
-
--(void)reload {
-    [self.view reload];
-}
-
--(CGFloat)heightForWidth:(CGFloat)width {
-    return 0;
-}
-
 -(NSDictionary *)allValues {
     return [self allValuesUsingAccumulator:[NSMutableDictionary dictionary]];
-}
-
--(NSArray *)allInputItems {
-    return [self allInputItemsUsingAccumulator:[NSMutableArray array]];
 }
 
 -(NSDictionary *)allValuesUsingAccumulator:(NSMutableDictionary *)accumulator {
@@ -98,6 +91,13 @@
 }
 
 -(void)setValues:(NSDictionary *)values {
+}
+
+-(void)layout {
+}
+
+-(void)reload {
+    [self.view reload];
 }
 
 @end
@@ -119,6 +119,15 @@
 
 @implementation FKForm
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        _rows = [NSMutableArray array];
+        _purpose = FKFormPurposeCreate;
+    }
+    return self;
+}
+
 -(void)setDelegate:(id<FKFormDelegate>)delegate {
     _delegateFlags.didFocusItem = delegate && [delegate respondsToSelector:@selector(form:didFocusItem:)];
     _delegateFlags.didDefocusItem = delegate && [delegate respondsToSelector:@selector(form:didDefocusItem:)];
@@ -126,6 +135,12 @@
     _delegate = delegate;
 }
 
+-(FKRowItem *)addRow {
+    FKRowItem *row = [FKRowItem new];
+    row.parent = self;
+    [_rows addObject:row];
+    return row;
+}
 
 -(void)focusItem:(FKInputItem *)item {
     if (item == _focus) {
@@ -153,14 +168,6 @@
     }
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        _rows = [NSMutableArray array];
-    }
-    return self;
-}
-
 -(FKFormItemView *)viewForItem {
     FKFormView *form = [FKFormView new];
     for (FKRowItem *row in _rows) {
@@ -178,13 +185,6 @@
         }
     }
     return nil;
-}
-
--(FKRowItem *)addRow {
-    FKRowItem *row = [FKRowItem new];
-    row.parent = self;
-    [_rows addObject:row];
-    return row;
 }
 
 -(CGFloat)heightForWidth:(CGFloat)width {
@@ -503,7 +503,6 @@ static const CGFloat kRatioNotSpecified = -1;
 }
 
 @end
-
 
 
 @implementation FKSelectFieldItem

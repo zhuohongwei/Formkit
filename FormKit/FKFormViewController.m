@@ -11,8 +11,7 @@
 #import "FKFormItemView.h"
 #import "FKFormSelectViewController.h"
 #import "FKFormResultViewController.h"
-#import "UIView+Glass.h"
-#import "UIView+Debug.h"
+#import "UIView+FKAdditions.h"
 
 @interface FKFormViewControllerLayoutView : UIView {
     FKFormView *_formView;
@@ -65,14 +64,26 @@
     FKFormViewControllerLayoutView * _layoutView;
     UIView *_overlayView;
     
-    UIBarButtonItem * _submitButton;
-    UIBarButtonItem * _cancelButton;
-    UIBarButtonItem * _deleteButton;
+    UIBarButtonItem *_submitButton;
+    UIBarButtonItem *_cancelButton;
+    UIBarButtonItem *_deleteButton;
 }
 
 @end
 
 @implementation FKFormViewController
+
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.form = nil;
+    }
+    return self;
+}
+
+-(id)init {
+    return [[FKFormViewController alloc] initWithNibName:nil bundle:nil];
+}
 
 - (void)loadView {
     [super loadView];
@@ -84,47 +95,43 @@
     
     [self.view addSubview:_layoutView];
     
-    if (_form) {
-        FKFormView *formView = (FKFormView *) [_form createView];
-        [_layoutView setFormView:formView];
+    if (!_form) {
+        return;
     }
+    
+    FKFormView *formView = (FKFormView *) [_form createView];
+    [_layoutView setFormView:formView];
 }
--(UIBarButtonItem *)submitButton
-{
-    if (_submitButton == nil)
-    {
-        _submitButton = [UIHelpers barButtonWithTitle:_form.submitLabel?_form.submitLabel:@"Submit" target:self action:@selector(submit:)];
-    }
-    return _submitButton;
-}
--(UIBarButtonItem *)cancelButton
-{
-    if (_cancelButton == nil)
-    {
-        _cancelButton = [UIHelpers barButtonWithTitle:_form.cancelLabel?_form.cancelLabel:@"Cancel" target:self action:@selector(cancel:)];
-    }
-    return _cancelButton;
-}
--(UIBarButtonItem *)deleteButton
-{
-    if (_deleteButton == nil)
-    {
-        _deleteButton = [UIHelpers barButtonWithTitle:_form.deleteLabel?_form.deleteLabel:@"Delete" target:self action:@selector(delete:)];
-        
-        UIButton * btn = (UIButton *)_deleteButton.customView;
-        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [btn setTitleColor:[[UIColor redColor] colorWithAlphaComponent:.5f] forState:UIControlStateHighlighted];
-    }
-    return _deleteButton;
-}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
-    self.navigationItem.title = _form.title;
-    
-    self.navigationItem.leftBarButtonItem = self.cancelButton;
-    self.navigationItem.rightBarButtonItem = self.submitButton;
+    [self setupNavigation];
+}
+
+-(UIBarButtonItem *)submitButton {
+    if (_submitButton == nil) {
+        _submitButton = [[UIBarButtonItem alloc] initWithTitle:_form.submitLabel?_form.submitLabel:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(submit:)];
+    }
+    return _submitButton;
+}
+
+-(UIBarButtonItem *)cancelButton {
+    if (_cancelButton == nil) {
+        _cancelButton = [[UIBarButtonItem alloc] initWithTitle:_form.cancelLabel?_form.cancelLabel:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+    }
+    return _cancelButton;
+}
+
+-(UIBarButtonItem *)deleteButton {
+    if (_deleteButton == nil) {
+        _deleteButton = [[UIBarButtonItem alloc] initWithTitle:_form.deleteLabel?_form.deleteLabel:@"Delete" style:UIBarButtonItemStylePlain target:self action:@selector(delete:)];
+        [_deleteButton setTitleTextAttributes:
+            @{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateNormal];
+        [_deleteButton setTitleTextAttributes:
+            @{NSForegroundColorAttributeName:[[UIColor redColor] colorWithAlphaComponent:.5f]} forState:UIControlStateHighlighted];
+    }
+    return _deleteButton;
 }
 
 -(void)setForm:(FKForm *)form {
@@ -139,14 +146,37 @@
         [_layoutView setFormView:formView];
         [_layoutView setNeedsLayout];
         
-        self.navigationItem.title = _form.title;
+        _cancelButton = nil;
+        _submitButton = nil;
+        _deleteButton = nil;
         
-        UIBarButtonItem *cancelButton = self.navigationItem.leftBarButtonItem;
-        cancelButton.title = _form.cancelLabel?_form.cancelLabel:@"Cancel";
+        self.navigationItem.title = nil;
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = @[];
         
-        UIBarButtonItem *submitButton = self.navigationItem.rightBarButtonItem;
-        submitButton.title = _form.submitLabel?_form.submitLabel:@"Submit";
+        [self setupNavigation];
     }
+}
+
+-(void)setupNavigation {
+    if (!_form) {
+        return;
+    }
+    
+    self.navigationItem.title = _form.title;
+    self.navigationItem.leftBarButtonItem = self.cancelButton;
+    
+    NSMutableArray *rightBarButtonItems = [NSMutableArray array];
+    
+    if (_form.purpose & FKFormPurposeCreate || _form.purpose & FKFormPurposeUpdate) {
+        [rightBarButtonItems addObject:self.submitButton];
+    }
+    
+    if (_form.purpose & FKFormPurposeDelete) {
+        [rightBarButtonItems addObject:self.deleteButton];
+    }
+    
+    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
 }
 
 -(void)cancel:(id)sender {
@@ -155,16 +185,16 @@
 
 -(void)submit:(id)sender {
 }
--(void)delete:(id)sender
-{
-    
+
+-(void)delete:(id)sender {
 }
+
 #pragma mark - convenience methods
 
+/*
 -(void)overlayMessage:(NSString *)message {
     [self removeOverlay];
     _overlayView = [UIView frostedGlassInView:self.view];
-    
     _overlayView.layer.opacity = 0.f;
     
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _overlayView.frame.size.width, 50)];
@@ -190,6 +220,7 @@
         }];
     }
 }
+*/
 
 -(void)presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)selectFieldItem {
     FKFormSelectViewController *controller = [[FKFormSelectViewController alloc] initWithSelectFieldItem:selectFieldItem];
@@ -211,18 +242,16 @@
 
 #pragma mark - FKFormDelegate
 
--(void)form:(FKForm *)form didFocusItem:(ISInputItem *)item {
+-(void)form:(FKForm *)form didFocusItem:(FKInputItem *)item {
     if ([item isKindOfClass:[FKSelectFieldItem class]]) {
         [self presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)item];
     }
 }
 
--(void)form:(FKForm *)form didDefocusItem:(ISInputItem *)item {
-    
+-(void)form:(FKForm *)form didDefocusItem:(FKInputItem *)item {
 }
 
--(void)form:(FKForm *)form valueDidChangedForItem:(ISInputItem *)item {
-    
+-(void)form:(FKForm *)form valueDidChangedForItem:(FKInputItem *)item {
 }
 
 @end

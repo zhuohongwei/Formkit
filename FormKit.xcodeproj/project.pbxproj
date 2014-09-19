@@ -31,6 +31,8 @@
 		EFAB747219CA96520040D89A /* FKFormResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747019CA96520040D89A /* FKFormResultViewController.m */; };
 		EFAB747519CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */; };
 		EFAB747619CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */; };
+		EFAB747919CBCAD90040D89A /* UIView+FKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */; };
+		EFAB747A19CBCAD90040D89A /* UIView+FKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		EFAB747019CA96520040D89A /* FKFormResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKFormResultViewController.m; sourceTree = "<group>"; };
 		EFAB747319CA96850040D89A /* FKFormMultiSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKFormMultiSelectViewController.h; sourceTree = "<group>"; };
 		EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKFormMultiSelectViewController.m; sourceTree = "<group>"; };
+		EFAB747719CBCAD90040D89A /* UIView+FKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FKAdditions.h"; sourceTree = "<group>"; };
+		EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FKAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				EFAB747019CA96520040D89A /* FKFormResultViewController.m */,
 				EFAB747319CA96850040D89A /* FKFormMultiSelectViewController.h */,
 				EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */,
+				EFAB747719CBCAD90040D89A /* UIView+FKAdditions.h */,
+				EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */,
 			);
 			path = FormKit;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 				EFAB745819C92CD40040D89A /* FKFormItem.m in Sources */,
 				EFAB747519CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */,
 				EFAB746D19CA90830040D89A /* FKFormSelectViewController.m in Sources */,
+				EFAB747919CBCAD90040D89A /* UIView+FKAdditions.m in Sources */,
 				EFAB743419C92B720040D89A /* main.m in Sources */,
 				EFAB745C19C92D180040D89A /* FKFormItemView.m in Sources */,
 				EFAB747119CA96520040D89A /* FKFormResultViewController.m in Sources */,
@@ -294,6 +301,7 @@
 				EFAB744D19C92B720040D89A /* FormKitTests.m in Sources */,
 				EFAB747619CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */,
 				EFAB746E19CA90830040D89A /* FKFormSelectViewController.m in Sources */,
+				EFAB747A19CBCAD90040D89A /* UIView+FKAdditions.m in Sources */,
 				EFAB746A19CA6C7A0040D89A /* FKFormViewController.m in Sources */,
 				EFAB745D19C92D180040D89A /* FKFormItemView.m in Sources */,
 				EFAB747219CA96520040D89A /* FKFormResultViewController.m in Sources */,
