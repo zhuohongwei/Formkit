@@ -33,6 +33,12 @@
 		EFAB747619CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */; };
 		EFAB747919CBCAD90040D89A /* UIView+FKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */; };
 		EFAB747A19CBCAD90040D89A /* UIView+FKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */; };
+		EFAB747D19CCF8270040D89A /* FKDemosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */; };
+		EFAB747E19CCF8270040D89A /* FKDemosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */; };
+		EFAB748119CCF9290040D89A /* FKBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB748019CCF9290040D89A /* FKBorderedView.m */; };
+		EFAB748219CCF9290040D89A /* FKBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB748019CCF9290040D89A /* FKBorderedView.m */; };
+		EFAB748519CD04CF0040D89A /* FKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB748419CD04CF0040D89A /* FKLoginViewController.m */; };
+		EFAB748619CD04CF0040D89A /* FKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFAB748419CD04CF0040D89A /* FKLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +82,12 @@
 		EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKFormMultiSelectViewController.m; sourceTree = "<group>"; };
 		EFAB747719CBCAD90040D89A /* UIView+FKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FKAdditions.h"; sourceTree = "<group>"; };
 		EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FKAdditions.m"; sourceTree = "<group>"; };
+		EFAB747B19CCF8270040D89A /* FKDemosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKDemosTableViewController.h; sourceTree = "<group>"; };
+		EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKDemosTableViewController.m; sourceTree = "<group>"; };
+		EFAB747F19CCF9290040D89A /* FKBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKBorderedView.h; sourceTree = "<group>"; };
+		EFAB748019CCF9290040D89A /* FKBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKBorderedView.m; sourceTree = "<group>"; };
+		EFAB748319CD04CF0040D89A /* FKLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKLoginViewController.h; sourceTree = "<group>"; };
+		EFAB748419CD04CF0040D89A /* FKLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +165,12 @@
 				EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */,
 				EFAB747719CBCAD90040D89A /* UIView+FKAdditions.h */,
 				EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */,
+				EFAB747B19CCF8270040D89A /* FKDemosTableViewController.h */,
+				EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */,
+				EFAB747F19CCF9290040D89A /* FKBorderedView.h */,
+				EFAB748019CCF9290040D89A /* FKBorderedView.m */,
+				EFAB748319CD04CF0040D89A /* FKLoginViewController.h */,
+				EFAB748419CD04CF0040D89A /* FKLoginViewController.m */,
 			);
 			path = FormKit;
 			sourceTree = "<group>";
@@ -283,14 +301,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFAB745819C92CD40040D89A /* FKFormItem.m in Sources */,
+				EFAB747D19CCF8270040D89A /* FKDemosTableViewController.m in Sources */,
 				EFAB747519CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */,
 				EFAB746D19CA90830040D89A /* FKFormSelectViewController.m in Sources */,
 				EFAB747919CBCAD90040D89A /* UIView+FKAdditions.m in Sources */,
 				EFAB743419C92B720040D89A /* main.m in Sources */,
 				EFAB745C19C92D180040D89A /* FKFormItemView.m in Sources */,
+				EFAB748519CD04CF0040D89A /* FKLoginViewController.m in Sources */,
 				EFAB747119CA96520040D89A /* FKFormResultViewController.m in Sources */,
 				EFAB746919CA6C7A0040D89A /* FKFormViewController.m in Sources */,
 				EFAB743819C92B720040D89A /* FKAppDelegate.m in Sources */,
+				EFAB748119CCF9290040D89A /* FKBorderedView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,12 +320,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFAB744D19C92B720040D89A /* FormKitTests.m in Sources */,
+				EFAB747E19CCF8270040D89A /* FKDemosTableViewController.m in Sources */,
 				EFAB747619CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */,
 				EFAB746E19CA90830040D89A /* FKFormSelectViewController.m in Sources */,
 				EFAB747A19CBCAD90040D89A /* UIView+FKAdditions.m in Sources */,
 				EFAB746A19CA6C7A0040D89A /* FKFormViewController.m in Sources */,
 				EFAB745D19C92D180040D89A /* FKFormItemView.m in Sources */,
+				EFAB748619CD04CF0040D89A /* FKLoginViewController.m in Sources */,
 				EFAB747219CA96520040D89A /* FKFormResultViewController.m in Sources */,
+				EFAB748219CCF9290040D89A /* FKBorderedView.m in Sources */,
 				EFAB745919C92CD40040D89A /* FKFormItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -37,8 +37,7 @@
 @end
 
 typedef NS_OPTIONS(NSUInteger, FKFormPurpose) {
-    FKFormPurposeCreate = 1 << 0,
-    FKFormPurposeUpdate = 1 << 1,
+    FKFormPurposeSubmit = 1 << 0,
     FKFormPurposeDelete = 1 << 2,
 };
 @interface FKForm : FKFormItem

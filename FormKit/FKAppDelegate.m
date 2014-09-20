@@ -7,13 +7,20 @@
 //
 
 #import "FKAppDelegate.h"
+#import "FKDemosTableViewController.h"
 
 @implementation FKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    FKDemosTableViewController *demosViewController =
+        [[FKDemosTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:demosViewController];
+    self.window.rootViewController = nc;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

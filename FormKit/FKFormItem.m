@@ -123,7 +123,7 @@
     self = [super init];
     if (self) {
         _rows = [NSMutableArray array];
-        _purpose = FKFormPurposeCreate;
+        _purpose = FKFormPurposeSubmit;
     }
     return self;
 }

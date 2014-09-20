@@ -8,6 +8,7 @@
 
 #import "FKFormItemView.h"
 #import "FKFormItem.h"
+#import "FKBorderedView.h"
 
 #define kBorderColor        [UIColor colorWithWhite:0.78f alpha:1.f]
 #define kPlaceholderColor   [UIColor colorWithWhite:0.78f alpha:1.f]
@@ -112,8 +113,8 @@
 @interface FKTextFieldView () <UITextFieldDelegate> {
     UILabel *_fieldLabel;
     UITextField *_textField;
-    UIView *_bv1;
-    UIView *_bv2;
+    FKBorderedView *_bv1;
+    FKBorderedView *_bv2;
 }
 
 @property (nonatomic, strong, readwrite) UILabel *fieldLabel;
@@ -131,7 +132,9 @@ static const CGFloat kTextFieldInset = 10.f;
 -(id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _bv1 = [UIView new];
+        _bv1 = [FKBorderedView new];
+        _bv1.borderColor = kBorderColor;
+        _bv1.borders = UIRectEdgeBottom | UIRectEdgeRight;
         
         _fieldLabel = [UILabel new];
         _fieldLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
@@ -141,7 +144,9 @@ static const CGFloat kTextFieldInset = 10.f;
         
         [_bv1 addSubview:_fieldLabel];
         
-        _bv2 = [UIView new];
+        _bv2 = [FKBorderedView new];
+        _bv2.borderColor = kBorderColor;
+        _bv2.borders = UIRectEdgeBottom;
         
         _textField = [UITextField new];
         _textField.delegate = self;
@@ -224,8 +229,8 @@ static const CGFloat kTextFieldInset = 10.f;
 
 @interface FKSelectFieldView () {
     UIImageView *_disclosureIndicatorView;
-    UIView *_bv1;
-    UIView *_bv2;
+    FKBorderedView *_bv1;
+    FKBorderedView *_bv2;
     UIView *_selectedBackgroundView;
 }
 
@@ -243,7 +248,9 @@ static const CGFloat kSelectFieldInset = 10.f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _bv1 = [UIView new];
+        _bv1 = [FKBorderedView new];
+        _bv1.borderColor = kBorderColor;
+        _bv1.borders = UIRectEdgeBottom | UIRectEdgeRight;
         
         _fieldLabel = [UILabel new];
         _fieldLabel.backgroundColor = [UIColor clearColor];
@@ -254,7 +261,9 @@ static const CGFloat kSelectFieldInset = 10.f;
         
         [_bv1 addSubview:_fieldLabel];
         
-        _bv2 = [UIView new];
+        _bv2 = [FKBorderedView new];
+        _bv2.borderColor = kBorderColor;
+        _bv2.borders = UIRectEdgeBottom;
         
         _valueLabel = [UILabel new];
         _valueLabel.backgroundColor = [UIColor clearColor];
@@ -370,8 +379,8 @@ static const CGFloat kSelectFieldInset = 10.f;
 
 
 @interface FKInlineSelectFieldView () {
-    UIView *_bv1;
-    UIView *_bv2;
+    FKBorderedView *_bv1;
+    FKBorderedView *_bv2;
     UIView *_selectedBackgroundView;
 }
 
@@ -391,7 +400,9 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _bv1 = [UIView new];
+        _bv1 = [FKBorderedView new];
+        _bv1.borderColor = kBorderColor;
+        _bv1.borders = UIRectEdgeBottom | UIRectEdgeRight;
         
         _fieldLabel = [UILabel new];
         _fieldLabel.backgroundColor = [UIColor clearColor];
@@ -402,7 +413,9 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
         
         [_bv1 addSubview:_fieldLabel];
         
-        _bv2 = [UIView new];
+        _bv2 = [FKBorderedView new];
+        _bv2.borderColor = kBorderColor;
+        _bv2.borders = UIRectEdgeBottom;
         
         [self addSubview:_bv1];
         [self addSubview:_bv2];

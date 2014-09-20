@@ -27,7 +27,7 @@
 -(id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _contentInset = UIEdgeInsetsMake(20, 10, 10, 0);
+        _contentInset = UIEdgeInsetsMake(80, 10, 10, 0);
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         [self addSubview:_scrollView];
     }
@@ -175,7 +175,7 @@
     
     NSMutableArray *rightBarButtonItems = [NSMutableArray array];
     
-    if (_form.purpose & FKFormPurposeCreate || _form.purpose & FKFormPurposeUpdate) {
+    if (_form.purpose & FKFormPurposeSubmit) {
         [rightBarButtonItems addObject:self.submitButton];
     }
     
