@@ -147,6 +147,7 @@
 		EFAB742D19C92B720040D89A /* FormKit */ = {
 			isa = PBXGroup;
 			children = (
+				EFAB748719CE53A90040D89A /* demos */,
 				EFAB743619C92B720040D89A /* FKAppDelegate.h */,
 				EFAB743719C92B720040D89A /* FKAppDelegate.m */,
 				EFAB743919C92B720040D89A /* Images.xcassets */,
@@ -165,12 +166,8 @@
 				EFAB747419CA96850040D89A /* FKFormMultiSelectViewController.m */,
 				EFAB747719CBCAD90040D89A /* UIView+FKAdditions.h */,
 				EFAB747819CBCAD90040D89A /* UIView+FKAdditions.m */,
-				EFAB747B19CCF8270040D89A /* FKDemosTableViewController.h */,
-				EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */,
 				EFAB747F19CCF9290040D89A /* FKBorderedView.h */,
 				EFAB748019CCF9290040D89A /* FKBorderedView.m */,
-				EFAB748319CD04CF0040D89A /* FKLoginViewController.h */,
-				EFAB748419CD04CF0040D89A /* FKLoginViewController.m */,
 			);
 			path = FormKit;
 			sourceTree = "<group>";
@@ -202,6 +199,17 @@
 				EFAB744919C92B720040D89A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFAB748719CE53A90040D89A /* demos */ = {
+			isa = PBXGroup;
+			children = (
+				EFAB747B19CCF8270040D89A /* FKDemosTableViewController.h */,
+				EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */,
+				EFAB748319CD04CF0040D89A /* FKLoginViewController.h */,
+				EFAB748419CD04CF0040D89A /* FKLoginViewController.m */,
+			);
+			name = demos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

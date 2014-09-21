@@ -30,12 +30,13 @@
 
 @interface FKInputControlView: FKFormItemView
 -(CGFloat)heightForWidth:(CGFloat)width;
+@property (nonatomic, assign) CGFloat labelWidthRatio;
 @end
 
 
 @interface FKTextFieldView: FKInputControlView
-@property (nonatomic, strong, readonly) UITextField *textField;
 @property (nonatomic, strong, readonly) UILabel *fieldLabel;
+@property (nonatomic, strong, readonly) UITextField *textField;
 @end
 
 

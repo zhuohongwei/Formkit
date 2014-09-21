@@ -51,6 +51,8 @@
 @end
 
 
+static const CGFloat kDefaultLabelWidthRatio = 0.3;
+
 @interface FKInputControlView () {
     NSArray *_keyPaths;
 }
@@ -66,6 +68,7 @@
                       NSStringFromSelector(@selector(value)),
                       NSStringFromSelector(@selector(placeholder)),
                       NSStringFromSelector(@selector(disabled))];
+        _labelWidthRatio = kDefaultLabelWidthRatio;
     }
     return self;
 }
@@ -139,6 +142,7 @@ static const CGFloat kTextFieldInset = 10.f;
         _fieldLabel = [UILabel new];
         _fieldLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
         _fieldLabel.textColor = kNormalLabelColor;
         
@@ -169,8 +173,11 @@ static const CGFloat kTextFieldInset = 10.f;
     
     CGFloat h = self.bounds.size.height;
     CGFloat w = self.bounds.size.width;
+
+    CGFloat w1 = floor(w*self.labelWidthRatio);
+    CGFloat w2 = w - w1;
     
-    _bv1.frame = (CGRect) {0, 0, floor(w*0.3), h};
+    _bv1.frame = (CGRect) {0, 0, w1, h};
     
     CGFloat labelWidth = _fieldLabel.intrinsicContentSize.width;
     labelWidth = MIN(labelWidth, CGRectGetWidth(_bv1.frame) - 2*kTextFieldInset);
@@ -178,7 +185,7 @@ static const CGFloat kTextFieldInset = 10.f;
     labelHeight = MIN(labelHeight, CGRectGetHeight(_bv1.frame) - 2*kTextFieldInset);
     _fieldLabel.frame = (CGRect) {kTextFieldInset, (h - labelHeight - kTextFieldInset), labelWidth, labelHeight};
     
-    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, floor(w*0.7), h};
+    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, w2, h};
     
     CGFloat textFieldWidth = _bv2.bounds.size.width - 2*kTextFieldInset;
     _textField.frame = (CGRect) {kTextFieldInset, (h - _textField.intrinsicContentSize.height - kTextFieldInset), textFieldWidth, _textField.intrinsicContentSize.height};
@@ -256,6 +263,7 @@ static const CGFloat kSelectFieldInset = 10.f;
         _fieldLabel.backgroundColor = [UIColor clearColor];
         _fieldLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
         _fieldLabel.textColor = kNormalLabelColor;
         
@@ -301,7 +309,10 @@ static const CGFloat kSelectFieldInset = 10.f;
     CGFloat h = self.bounds.size.height;
     CGFloat w = self.bounds.size.width;
     
-    _bv1.frame = (CGRect) {0, 0, floor(w*0.3), h};
+    CGFloat w1 = floor(w*self.labelWidthRatio);
+    CGFloat w2 = w - w1;
+    
+    _bv1.frame = (CGRect) {0, 0, w1, h};
     
     CGFloat labelWidth = _fieldLabel.intrinsicContentSize.width;
     labelWidth = MIN(labelWidth, CGRectGetWidth(_bv1.frame) - 2*kSelectFieldInset);
@@ -311,7 +322,7 @@ static const CGFloat kSelectFieldInset = 10.f;
     
     _fieldLabel.frame = (CGRect) {kSelectFieldInset, (h - labelHeight - kSelectFieldInset), labelWidth, labelHeight};
     
-    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, floor(w*0.7), h};
+    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, w2, h};
     
     CGRect f = _disclosureIndicatorView.frame;
     f.size = _disclosureIndicatorView.intrinsicContentSize;
@@ -408,6 +419,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
         _fieldLabel.backgroundColor = [UIColor clearColor];
         _fieldLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
         _fieldLabel.textColor = kNormalLabelColor;
         
@@ -440,7 +452,10 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
     CGFloat h = self.bounds.size.height;
     CGFloat w = self.bounds.size.width;
     
-    _bv1.frame = (CGRect) {0, 0, floor(w*0.3), h};
+    CGFloat w1 = floor(w*self.labelWidthRatio);
+    CGFloat w2 = w - w1;
+    
+    _bv1.frame = (CGRect) {0, 0, w1, h};
     
     CGFloat labelWidth = _fieldLabel.intrinsicContentSize.width;
     labelWidth = MIN(labelWidth, CGRectGetWidth(_bv1.frame) - 2*kInlineSelectFieldInset);
@@ -450,7 +465,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
     
     _fieldLabel.frame = (CGRect) {kInlineSelectFieldInset, (h - labelHeight - kInlineSelectFieldInset), labelWidth, labelHeight};
     
-    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, floor(w*0.7), h};
+    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, w2, h};
     
     NSUInteger numOfOptionButtons = _optionButtons.count;
     if (numOfOptionButtons > 0) {
@@ -521,6 +536,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
         } else {
             [optionButton setTitleColor:kPlaceholderColor forState:UIControlStateNormal];
         }
+        
         [optionButton setEnabled:!input.disabled];
     }
     
@@ -576,6 +592,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
         } else {
             [optionButton setTitleColor:kPlaceholderColor forState:UIControlStateNormal];
         }
+        
         [optionButton setEnabled:!input.disabled];
     }
     
@@ -608,8 +625,8 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
             
         } else {
             [selectedOptionValues addObject:optionValue];
-            
         }
+        
         input.value = selectedOptionValues.copy;
     }
     
