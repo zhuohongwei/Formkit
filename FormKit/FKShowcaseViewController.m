@@ -56,9 +56,13 @@
         
         // ---------- FKSwitchFieldItem
         FKRowItem *row6 = [form addRow];
-        FKSwitchFieldItem *switchFieldItem = [FKSwitchFieldItem switchFieldItemWithName:@"switchfielditem" label:@"Switch Field"];
-        [row6 addColumnWithItem:switchFieldItem];
-        
+
+        FKSwitchFieldItem *switchFieldItem1 = [FKSwitchFieldItem switchFieldItemWithName:@"switchfielditem1" label:@"Switch 1"];
+        [row6 addColumnWithItem:switchFieldItem1];
+
+        FKSwitchFieldItem *switchFieldItem2 = [FKSwitchFieldItem switchFieldItemWithName:@"switchfielditem2" label:@"Switch 2"];
+        [row6 addColumnWithItem:switchFieldItem2];
+
         form.purpose = FKFormPurposeSubmit|FKFormPurposeDelete;
         
         self.form = form;
