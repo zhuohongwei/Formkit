@@ -232,7 +232,11 @@
 
 -(void)presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)selectFieldItem {
     FKFormSelectViewController *controller = [[FKFormSelectViewController alloc] initWithSelectFieldItem:selectFieldItem];
-    [self.navigationController pushViewController:controller animated:YES];
+    if (self.navigationController) {
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 -(void)presentSuccessMessage:(NSAttributedString *)message {
@@ -251,7 +255,8 @@
 #pragma mark - FKFormDelegate
 
 -(void)form:(FKForm *)form didFocusItem:(FKInputItem *)item {
-    if ([item isKindOfClass:[FKSelectFieldItem class]]) {
+    if ([item isKindOfClass:[FKSelectFieldItem class]]
+        && ![item isKindOfClass:[FKInlineSelectFieldItem class]]) {
         [self presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)item];
     }
 }
