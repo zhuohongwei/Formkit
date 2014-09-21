@@ -144,7 +144,7 @@ static const CGFloat kTextFieldInset = 10.f;
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
-        _fieldLabel.textColor = kNormalLabelColor;
+        _fieldLabel.textColor = self.tintColor;
         
         [_bv1 addSubview:_fieldLabel];
         
@@ -205,7 +205,7 @@ static const CGFloat kTextFieldInset = 10.f;
         _fieldLabel.textColor = kDisabledLabelColor;
     } else {
         _textField.enabled = YES;
-        _fieldLabel.textColor = kNormalLabelColor;
+        _fieldLabel.textColor = self.tintColor;
     }
     
     [self setNeedsLayout];
@@ -265,7 +265,7 @@ static const CGFloat kSelectFieldInset = 10.f;
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
-        _fieldLabel.textColor = kNormalLabelColor;
+        _fieldLabel.textColor = self.tintColor;
         
         [_bv1 addSubview:_fieldLabel];
         
@@ -344,7 +344,7 @@ static const CGFloat kSelectFieldInset = 10.f;
     FKSelectFieldItem *input = (FKSelectFieldItem *) self.item;
     _fieldLabel.text = input.label;
     _valueLabel.text = input.displayValue;
-    if (!input.value) {
+    if (!input.value || ([input.value isKindOfClass:[NSArray class]] && [(NSArray *)input.value count] == 0)) {
         _valueLabel.textColor = kPlaceholderColor;
     } else {
         _valueLabel.textColor = [UIColor blackColor];
@@ -354,7 +354,7 @@ static const CGFloat kSelectFieldInset = 10.f;
         _valueLabel.textColor = kDisabledLabelColor;
         _fieldLabel.textColor = kDisabledLabelColor;
     } else {
-        _fieldLabel.textColor = kNormalLabelColor;
+        _fieldLabel.textColor = self.tintColor;
     }
     
     [self setNeedsLayout];
@@ -421,7 +421,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
         _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _fieldLabel.adjustsFontSizeToFitWidth = YES;
         _fieldLabel.numberOfLines = 1;
-        _fieldLabel.textColor = kNormalLabelColor;
+        _fieldLabel.textColor = self.tintColor;
         
         [_bv1 addSubview:_fieldLabel];
         
