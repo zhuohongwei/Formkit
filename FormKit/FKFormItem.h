@@ -93,14 +93,17 @@ typedef NS_OPTIONS(NSUInteger, FKFormPurpose) {
 
 @interface FKMultiSelectFieldItem: FKSelectFieldItem
 +(FKMultiSelectFieldItem *) multiSelectFieldItemWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
++(FKMultiSelectFieldItem *)multiSelectFieldItemWithName:(NSString *)name label:(NSString *)label placeholder:(NSString *)placeholder;
 @end
 
 
 @interface FKInlineSelectFieldItem : FKSelectFieldItem
 +(FKInlineSelectFieldItem *)inlineSelectFieldItemWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
++(FKInlineSelectFieldItem *)inlineSelectFieldItemWithName:(NSString *)name label:(NSString *)label;
 @end
 
 
 @interface FKInlineMultiSelectFieldItem : FKInlineSelectFieldItem
 +(FKInlineMultiSelectFieldItem *)inlineMultiSelectFieldItemWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
++(FKInlineMultiSelectFieldItem *)inlineMultiSelectFieldItemWithName:(NSString *)name label:(NSString *)label;
 @end
