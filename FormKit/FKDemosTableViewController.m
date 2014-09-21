@@ -8,6 +8,7 @@
 
 #import "FKDemosTableViewController.h"
 #import "FKLoginViewController.h"
+#import "FKShowcaseViewController.h"
 
 @interface FKDemosTableViewController () {
     NSArray *_demoNames;
@@ -20,7 +21,7 @@
 - (id)initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self) {
-        _demoNames = @[@"Sign In", @"Sign Up"];
+        _demoNames = @[@"Sign In Form", @"Showcase"];
     }
     return self;
 }
@@ -54,11 +55,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *demoName = _demoNames[indexPath.row];
-    if ([demoName isEqualToString:@"Sign In"]) {
+    if ([demoName isEqualToString:@"Sign In Form"]) {
         FKLoginViewController *loginViewController = [[FKLoginViewController alloc] initWithNibName:nil bundle:nil];
         UINavigationController *loginNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
         
         [self.navigationController presentViewController:loginNavigationController animated:YES completion:nil];
+    } else if ([demoName isEqualToString:@"Showcase"]) {
+        FKShowcaseViewController *showcaseViewController = [[FKShowcaseViewController alloc] initWithNibName:nil bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:showcaseViewController];
+        [self.navigationController presentViewController:navigationController animated:YES completion:nil];
     }
 }
 

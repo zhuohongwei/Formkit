@@ -86,6 +86,7 @@ typedef NS_OPTIONS(NSUInteger, FKFormPurpose) {
 @interface FKSelectFieldItem: FKInputItem
 @property (nonatomic, strong) NSDictionary *keyAndDisplayValues;
 @property (nonatomic, strong) NSArray *sortedKeyValues;
+@property (nonatomic) BOOL searchEnabled;
 -(NSString *)displayValue;
 +(FKSelectFieldItem *) selectFieldItemWithName:(NSString *)name label:(NSString *)label placeholder:(NSString *)placeholder;
 @end

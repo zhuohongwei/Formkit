@@ -279,7 +279,7 @@ static const CGFloat kSelectFieldInset = 10.f;
         _valueLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _valueLabel.numberOfLines = 1;
         
-        _disclosureIndicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_disclosure_indicator"]];
+        _disclosureIndicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fk_disclosure_indicator"]];
         
         [_bv2 addSubview:_valueLabel];
         [_bv2 addSubview:_disclosureIndicatorView];

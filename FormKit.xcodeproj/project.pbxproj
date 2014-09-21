@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC9F696B19CED3F600A57E9D /* FKShowcaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9F696A19CED3F600A57E9D /* FKShowcaseViewController.m */; };
 		EFAB742819C92B720040D89A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB742719C92B720040D89A /* Foundation.framework */; };
 		EFAB742A19C92B720040D89A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB742919C92B720040D89A /* CoreGraphics.framework */; };
 		EFAB742C19C92B720040D89A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB742B19C92B720040D89A /* UIKit.framework */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC9F696919CED3F600A57E9D /* FKShowcaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKShowcaseViewController.h; sourceTree = "<group>"; };
+		DC9F696A19CED3F600A57E9D /* FKShowcaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKShowcaseViewController.m; sourceTree = "<group>"; };
 		EFAB742419C92B720040D89A /* FormKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFAB742719C92B720040D89A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EFAB742919C92B720040D89A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -208,6 +211,8 @@
 				EFAB747C19CCF8270040D89A /* FKDemosTableViewController.m */,
 				EFAB748319CD04CF0040D89A /* FKLoginViewController.h */,
 				EFAB748419CD04CF0040D89A /* FKLoginViewController.m */,
+				DC9F696919CED3F600A57E9D /* FKShowcaseViewController.h */,
+				DC9F696A19CED3F600A57E9D /* FKShowcaseViewController.m */,
 			);
 			name = demos;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				EFAB747D19CCF8270040D89A /* FKDemosTableViewController.m in Sources */,
 				EFAB747519CA96850040D89A /* FKFormMultiSelectViewController.m in Sources */,
 				EFAB746D19CA90830040D89A /* FKFormSelectViewController.m in Sources */,
+				DC9F696B19CED3F600A57E9D /* FKShowcaseViewController.m in Sources */,
 				EFAB747919CBCAD90040D89A /* UIView+FKAdditions.m in Sources */,
 				EFAB743419C92B720040D89A /* main.m in Sources */,
 				EFAB745C19C92D180040D89A /* FKFormItemView.m in Sources */,
@@ -451,6 +457,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FormKit/FormKit-Prefix.pch";
 				INFOPLIST_FILE = "FormKit/FormKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -464,6 +471,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FormKit/FormKit-Prefix.pch";
 				INFOPLIST_FILE = "FormKit/FormKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -528,6 +536,7 @@
 				EFAB745219C92B720040D89A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFAB745319C92B720040D89A /* Build configuration list for PBXNativeTarget "FormKitTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +545,7 @@
 				EFAB745519C92B720040D89A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,6 @@
 
 #import "FKFormViewController.h"
 
-@interface FKInputItemShowcaseViewController : FKFormViewController
+@interface FKShowcaseViewController : FKFormViewController
 
 @end

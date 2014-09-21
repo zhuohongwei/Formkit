@@ -6,32 +6,71 @@
 //  Copyright (c) 2014 ___zhuohongwei___. All rights reserved.
 //
 
-#import "FKInputItemShowcaseViewController.h"
+#import "FKShowcaseViewController.h"
 
-@interface FKInputItemShowcaseViewController ()
+@interface FKShowcaseViewController ()
 
 @end
 
-@implementation FKInputItemShowcaseViewController
+@implementation FKShowcaseViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        FKForm *form = [[FKForm alloc] init];
+        form.title = @"Showcase";
+        
+        // ---------- FKTextFieldItem
+        FKRowItem *row1 = [form addRow];
+        [row1 addColumnWithItem:[FKTextFieldItem textFieldItemWithName:@"textfield" label:@"Text Field" text:nil placeholder:@"Enter text..."]];
+        
+        // ---------- FKSelectFieldItem & FKMultiSelectFieldItem
+        NSDictionary * selectOptions = @{ @"1" : @"One", @"2" : @"Two", @"3" : @"Three" };
+        
+        FKRowItem *row2 = [form addRow];
+        FKSelectFieldItem *selectFieldItem = [FKSelectFieldItem selectFieldItemWithName:@"selectfield" label:@"Select Field" placeholder:@"Select one..."];
+        selectFieldItem.keyAndDisplayValues = selectOptions;
+        selectFieldItem.sortedKeyValues = [selectOptions allKeys];
+        [row2 addColumnWithItem:selectFieldItem];
+        
+        FKRowItem *row3 = [form addRow];
+        FKMultiSelectFieldItem *multiSelectFieldItem = [FKMultiSelectFieldItem multiSelectFieldItemWithName:@"multiselectfield" label:@"Multi Select Field" placeholder:@"Select one or more..."];
+        multiSelectFieldItem.keyAndDisplayValues = selectOptions;
+        multiSelectFieldItem.sortedKeyValues = [selectOptions allKeys];
+        [row3 addColumnWithItem:multiSelectFieldItem];
+        
+        // ---------- FKInlineSelectFieldItem & FKMultiInlineSelectFieldItem
+        FKRowItem *row4 = [form addRow];
+        FKInlineSelectFieldItem *inlineSelectFieldItem = [FKInlineSelectFieldItem inlineSelectFieldItemWithName:@"inlineselectfield" label:@"Inline Select Field"];
+        inlineSelectFieldItem.keyAndDisplayValues = selectOptions;
+        inlineSelectFieldItem.sortedKeyValues = [selectOptions allKeys];
+        [row4 addColumnWithItem:inlineSelectFieldItem];
+
+        FKRowItem *row5 = [form addRow];
+        FKInlineMultiSelectFieldItem *inlineMultiSelectFieldItem = [FKInlineMultiSelectFieldItem inlineMultiSelectFieldItemWithName:@"inlinemultiselectfield" label:@"Inline Multi Select Field"];
+        inlineMultiSelectFieldItem.keyAndDisplayValues = selectOptions;
+        inlineMultiSelectFieldItem.sortedKeyValues = [selectOptions allKeys];
+        [row5 addColumnWithItem:inlineMultiSelectFieldItem];
+        
+        form.purpose = FKFormPurposeSubmit|FKFormPurposeDelete;
+        
+        self.form = form;
+    }
+    return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+// ---------- Override submit
+- (void)submit:(id)sender
+{
+    NSString *formDataAsJsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[self.form allValues]  options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    [self presentSuccessMessage:[[NSAttributedString alloc] initWithString:formDataAsJsonString]];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// ---------- Override delete
+- (void)delete:(id)sender {
+    [self presentFailureMessage:[[NSAttributedString alloc] initWithString:@"Delete button pressed."]];
 }
-*/
 
 @end
