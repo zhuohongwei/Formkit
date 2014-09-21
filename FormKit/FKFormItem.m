@@ -571,7 +571,18 @@ static const CGFloat kRatioNotSpecified = -1;
     item.disabled = selectFieldItem.disabled;
     return item;
 }
++(FKMultiSelectFieldItem *)multiSelectFieldItemWithName:(NSString *)name label:(NSString *)label placeholder:(NSString *)placeholder {
 
+    FKMultiSelectFieldItem *item = [FKMultiSelectFieldItem new];
+    item.name = name;
+    item.label = label;
+    item.placeholder = placeholder;
+    item.keyAndDisplayValues = nil;
+    item.sortedKeyValues = nil;
+    item.value = nil;
+    item.disabled = NO;
+    return item;
+}
 @end
 
 
@@ -593,7 +604,17 @@ static const CGFloat kRatioNotSpecified = -1;
     item.disabled = selectFieldItem.disabled;
     return item;
 }
-
++(FKInlineSelectFieldItem *)inlineSelectFieldItemWithName:(NSString *)name label:(NSString *)label {
+    FKInlineSelectFieldItem *item = [FKInlineSelectFieldItem new];
+    item.name = name;
+    item.label = label;
+    item.placeholder = nil;
+    item.keyAndDisplayValues = nil;
+    item.sortedKeyValues = nil;
+    item.value = nil;
+    item.disabled = NO;
+    return item;
+}
 @end
 
 
@@ -615,7 +636,17 @@ static const CGFloat kRatioNotSpecified = -1;
     item.disabled = selectFieldItem.disabled;
     return item;
 }
-
++(FKInlineMultiSelectFieldItem *)inlineMultiSelectFieldItemWithName:(NSString *)name label:(NSString *)label {
+    FKInlineMultiSelectFieldItem *item = [FKInlineMultiSelectFieldItem new];
+    item.name = name;
+    item.label = label;
+    item.placeholder = nil;
+    item.keyAndDisplayValues = nil;
+    item.sortedKeyValues = nil;
+    item.value = nil;
+    item.disabled = NO;
+    return item;
+}
 @end
 
 

@@ -18,20 +18,15 @@
 @property (nonatomic, readonly) UIBarButtonItem *cancelButton;
 @property (nonatomic, readonly) UIBarButtonItem *deleteButton;
 
-/*
--(void)overlayMessage:(NSString *)message;
--(void)removeOverlay;
-*/
-
 -(void)presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
 -(void)presentSuccessMessage:(NSAttributedString *)message;
 -(void)presentFailureMessage:(NSAttributedString *)message;
-
 
 //Methods to override in subclass, do not call directly
 -(void)cancel:(id)sender;
 -(void)submit:(id)sender;
 -(void)delete:(id)sender;
+-(void)navigationItemDidSetup;
 
 @end
 

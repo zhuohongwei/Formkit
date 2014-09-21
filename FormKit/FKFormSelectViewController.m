@@ -122,12 +122,13 @@
     }
     
     cell.textLabel.text = displayValue;
-    
-    if (keyValue && _selectFieldItem.value && [keyValue isEqual:_selectFieldItem.value]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    BOOL checked = NO;
+    if ([_selectFieldItem isKindOfClass:[FKMultiSelectFieldItem class]]) {
+        checked = keyValue && _selectFieldItem.value && [(NSArray *)_selectFieldItem.value containsObject:keyValue];
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        checked = keyValue && _selectFieldItem.value && [keyValue isEqual:_selectFieldItem.value];
     }
+    cell.accessoryType = checked ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -140,23 +141,42 @@
     NSArray *keyValues = (tableView == self.tableView)? _sortedKeyValues:_searchKeyValues;
     id keyValue = [keyValues objectAtIndex:indexPath.row];
     
-    if (!_selectFieldItem.value
-        || (keyValue && _selectFieldItem.value && ![keyValue isEqual:_selectFieldItem.value])) {
-        _selectFieldItem.value = keyValue;
+    if ([_selectFieldItem isKindOfClass:[FKMultiSelectFieldItem class]]) {
+        
+        FKMultiSelectFieldItem * multiSelectFieldItem = (FKMultiSelectFieldItem *)_selectFieldItem;
+        NSMutableSet * valueSet = [NSMutableSet setWithArray:multiSelectFieldItem.value ? multiSelectFieldItem.value : @[]];
+        BOOL adding = ![valueSet containsObject:keyValue];
+        if (adding) {
+            [valueSet addObject:keyValue];
+        } else {
+            [valueSet removeObject:keyValue];
+        }
+        _selectFieldItem.value = [valueSet allObjects];
         [_selectFieldItem reload];
         
-        for (UITableViewCell *cell in tableView.visibleCells) {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        
         UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-        selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        selectedCell.accessoryType = adding ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         
-        FKForm *form = (FKForm *)_selectFieldItem.rootItem;
-        [form valueChangedForItem:(FKInputItem *)_selectFieldItem];
+    } else if ([_selectFieldItem isKindOfClass:[FKSelectFieldItem class]]) {
         
-        [self.navigationController popViewControllerAnimated:YES];
+        if (!_selectFieldItem.value
+            || (keyValue && _selectFieldItem.value && ![keyValue isEqual:_selectFieldItem.value])) {
+            _selectFieldItem.value = keyValue;
+            [_selectFieldItem reload];
+            
+            for (UITableViewCell *cell in tableView.visibleCells) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+            UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+            selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
+
+    FKForm *form = (FKForm *)_selectFieldItem.rootItem;
+    [form valueChangedForItem:(FKInputItem *)_selectFieldItem];
 }
 
 #pragma mark - UISearchDelegate & UISearchDisplayDelegate
@@ -201,7 +221,4 @@
 -(void)resetSearch {
     [_searchKeyValues removeAllObjects];
 }
-
-
-
 @end

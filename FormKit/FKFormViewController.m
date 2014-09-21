@@ -185,6 +185,7 @@
     }
     
     self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    [self navigationItemDidSetup];
 }
 
 -(void)cancel:(id)sender {
@@ -197,61 +198,38 @@
 -(void)delete:(id)sender {
 }
 
-#pragma mark - convenience methods
-
-/*
--(void)overlayMessage:(NSString *)message {
-    [self removeOverlay];
-    _overlayView = [UIView frostedGlassInView:self.view];
-    _overlayView.layer.opacity = 0.f;
-    
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _overlayView.frame.size.width, 50)];
-    [messageLabel setBackgroundColor:mRgb(0x6a, 0xa1, 0xdf)];
-    [messageLabel setTextColor:mRgb(0x0a, 0x59, 0x99)];
-    [messageLabel setText:message];
-    [messageLabel setTextAlignment:NSTextAlignmentCenter];
-    [_overlayView addSubview:messageLabel];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        _overlayView.layer.opacity = 1.f;
-    } completion:^(BOOL finished) {
-    }];
+-(void)navigationItemDidSetup {
 }
 
--(void)removeOverlay {
-    if (_overlayView) {
-        [UIView animateWithDuration:0.2 animations:^{
-            _overlayView.layer.opacity = 0.f;
-        } completion:^(BOOL finished) {
-            [_overlayView removeFromSuperview];
-            _overlayView = nil;
-        }];
-    }
-}
-*/
-
+#pragma mark - Convenience Methods
 -(void)presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)selectFieldItem {
     FKFormSelectViewController *controller = [[FKFormSelectViewController alloc] initWithSelectFieldItem:selectFieldItem];
-    [self.navigationController pushViewController:controller animated:YES];
+    controller.allowSearching = selectFieldItem.searchEnabled;
+    if (self.navigationController) {
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 -(void)presentSuccessMessage:(NSAttributedString *)message {
     FKFormResultViewController *controller = [[FKFormResultViewController alloc] init];
     controller.disableBackButton = YES;
-    [controller setImage:[UIImage imageNamed:@"1040-checkmark"] andMessage:message];
+    [controller setImage:[UIImage imageNamed:@"fk_checkmark"] andMessage:message];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(void)presentFailureMessage:(NSAttributedString *)message {
     FKFormResultViewController *controller = [[FKFormResultViewController alloc] init];
-    [controller setImage:[UIImage imageNamed:@"791-warning"] andMessage:message];
+    [controller setImage:[UIImage imageNamed:@"fk_warning"] andMessage:message];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - FKFormDelegate
 
 -(void)form:(FKForm *)form didFocusItem:(FKInputItem *)item {
-    if ([item isKindOfClass:[FKSelectFieldItem class]]) {
+    if ([item isKindOfClass:[FKSelectFieldItem class]]
+        && ![item isKindOfClass:[FKInlineSelectFieldItem class]]) {
         [self presentViewControllerForSelectFieldItem:(FKSelectFieldItem *)item];
     }
 }

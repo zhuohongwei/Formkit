@@ -133,7 +133,7 @@
     if (self.delegate) {
         [self.delegate formResultViewControllerDidDismissFormResult:self];
     } else {
-        [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
