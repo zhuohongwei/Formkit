@@ -55,3 +55,7 @@
 @interface FKInlineMultiSelectFieldView: FKInlineSelectFieldView
 @end
 
+@interface FKSwitchFieldView : FKInputControlView
+@property (nonatomic, strong, readonly) UILabel *fieldLabel;
+@property (nonatomic, strong, readonly) UISwitch *switchControl;
+@end

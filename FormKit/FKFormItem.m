@@ -650,3 +650,19 @@ static const CGFloat kRatioNotSpecified = -1;
 @end
 
 
+@implementation FKSwitchFieldItem
+-(FKFormItemView *)viewForItem {
+    FKSwitchFieldView *view = [FKSwitchFieldView new];
+    return view;
+}
+
++(FKSwitchFieldItem *)switchFieldItemWithName:(NSString *)name label:(NSString *)label {
+    FKSwitchFieldItem *item = [FKSwitchFieldItem new];
+    item.name = name;
+    item.label = label;
+    item.placeholder = nil;
+    item.value = @(NO);
+    item.disabled = NO;
+    return item;
+}
+@end

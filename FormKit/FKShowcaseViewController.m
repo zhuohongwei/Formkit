@@ -54,6 +54,11 @@
         inlineMultiSelectFieldItem.sortedKeyValues = [selectOptions allKeys];
         [row5 addColumnWithItem:inlineMultiSelectFieldItem];
         
+        // ---------- FKSwitchFieldItem
+        FKRowItem *row6 = [form addRow];
+        FKSwitchFieldItem *switchFieldItem = [FKSwitchFieldItem switchFieldItemWithName:@"switchfielditem" label:@"Switch Field"];
+        [row6 addColumnWithItem:switchFieldItem];
+        
         form.purpose = FKFormPurposeSubmit|FKFormPurposeDelete;
         
         self.form = form;

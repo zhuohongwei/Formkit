@@ -36,7 +36,6 @@
     }
     return self;
 }
-
 @end
 
 @implementation FKFormView
@@ -635,5 +634,102 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
 
 @end
 
+@interface FKSwitchFieldView ()
+{
+    FKBorderedView * _bv1;
+    FKBorderedView * _bv2;
+}
+@end
 
+@implementation FKSwitchFieldView
 
+-(id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        _bv1 = [FKBorderedView new];
+        _bv1.borderColor = kBorderColor;
+        _bv1.borders = UIRectEdgeBottom;
+        
+        _fieldLabel = [UILabel new];
+        _fieldLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
+        _fieldLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _fieldLabel.adjustsFontSizeToFitWidth = YES;
+        _fieldLabel.numberOfLines = 1;
+        _fieldLabel.textColor = self.tintColor;
+        
+        [_bv1 addSubview:_fieldLabel];
+        
+        _bv2 = [FKBorderedView new];
+        _bv2.borderColor = kBorderColor;
+        _bv2.borders = UIRectEdgeBottom;
+        
+        _switchControl = [UISwitch new];
+        [_switchControl addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [_bv2 addSubview:_switchControl];
+        
+        [self addSubview:_bv1];
+        [self addSubview:_bv2];
+    }
+    return self;
+}
+
+-(CGFloat)heightForWidth:(CGFloat)width {
+    return 44.f;
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGFloat h = self.bounds.size.height;
+    CGFloat w = self.bounds.size.width;
+    
+    CGFloat w1 = floor(w-_switchControl.intrinsicContentSize.width-20.f);
+    CGFloat w2 = w-w1;
+    
+    _bv1.frame = (CGRect) {0, 0, w1, h};
+    
+    CGFloat labelWidth = _fieldLabel.intrinsicContentSize.width;
+    labelWidth = MIN(labelWidth, CGRectGetWidth(_bv1.frame) - 2*kTextFieldInset);
+    CGFloat labelHeight = _fieldLabel.intrinsicContentSize.height;
+    labelHeight = MIN(labelHeight, CGRectGetHeight(_bv1.frame) - 2*kTextFieldInset);
+    _fieldLabel.frame = (CGRect) {kTextFieldInset, (h - labelHeight - kTextFieldInset), labelWidth, labelHeight};
+    
+    _bv2.frame = (CGRect) {CGRectGetMaxX(_bv1.frame), 0, w2, h};
+
+    CGFloat switchControlWidth = _switchControl.intrinsicContentSize.width;
+    CGFloat switchControlHeight = _switchControl.intrinsicContentSize.height;
+    _switchControl.frame = (CGRect) {
+        w2-switchControlWidth-10.f,
+        floor((h - switchControlHeight)/2.f),
+        switchControlWidth,
+        switchControlHeight
+    };
+}
+
+-(void)reload {
+    
+    FKSwitchFieldItem *input = (FKSwitchFieldItem *)self.item;
+    _fieldLabel.text = input.label;
+    _switchControl.on = [input.value boolValue];
+    
+    if (input.disabled) {
+        _switchControl.enabled = NO;
+        _fieldLabel.textColor = kDisabledLabelColor;
+    } else {
+        _switchControl.enabled = YES;
+        _fieldLabel.textColor = self.tintColor;
+    }
+    
+    [self setNeedsLayout];
+}
+
+-(void)switchValueChanged:(UISwitch *)switchControl {
+    FKSwitchFieldItem *input = (FKSwitchFieldItem *)self.item;
+    input.value = @(switchControl.on);
+    FKForm *form = (FKForm *)input.rootItem;
+    [form valueChangedForItem:input];
+}
+
+@end

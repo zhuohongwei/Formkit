@@ -108,3 +108,7 @@ typedef NS_OPTIONS(NSUInteger, FKFormPurpose) {
 +(FKInlineMultiSelectFieldItem *)inlineMultiSelectFieldItemWithSelectFieldItem:(FKSelectFieldItem *)selectFieldItem;
 +(FKInlineMultiSelectFieldItem *)inlineMultiSelectFieldItemWithName:(NSString *)name label:(NSString *)label;
 @end
+
+@interface FKSwitchFieldItem : FKInputItem
++(FKSwitchFieldItem *)switchFieldItemWithName:(NSString *)name label:(NSString *)label;
+@end

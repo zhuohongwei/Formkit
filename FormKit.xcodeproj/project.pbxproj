@@ -151,8 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				EFAB748719CE53A90040D89A /* demos */,
-				EFAB743619C92B720040D89A /* FKAppDelegate.h */,
-				EFAB743719C92B720040D89A /* FKAppDelegate.m */,
 				EFAB743919C92B720040D89A /* Images.xcassets */,
 				EFAB742E19C92B720040D89A /* Supporting Files */,
 				EFAB745619C92CD40040D89A /* FKFormItem.h */,
@@ -213,6 +211,8 @@
 				EFAB748419CD04CF0040D89A /* FKLoginViewController.m */,
 				DC9F696919CED3F600A57E9D /* FKShowcaseViewController.h */,
 				DC9F696A19CED3F600A57E9D /* FKShowcaseViewController.m */,
+				EFAB743619C92B720040D89A /* FKAppDelegate.h */,
+				EFAB743719C92B720040D89A /* FKAppDelegate.m */,
 			);
 			name = demos;
 			sourceTree = "<group>";
@@ -265,6 +265,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "___zhuohongwei___";
 				TargetAttributes = {
+					EFAB742319C92B720040D89A = {
+						DevelopmentTeam = LW2WBZ66QM;
+					};
 					EFAB743E19C92B720040D89A = {
 						TestTargetID = EFAB742319C92B720040D89A;
 					};
@@ -454,11 +457,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FormKit/FormKit-Prefix.pch";
 				INFOPLIST_FILE = "FormKit/FormKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -468,11 +474,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FormKit/FormKit-Prefix.pch";
 				INFOPLIST_FILE = "FormKit/FormKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
