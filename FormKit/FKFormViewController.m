@@ -27,13 +27,19 @@
 -(id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _contentInset = UIEdgeInsetsMake(20, 10, 10, 0);
+        _contentInset = UIEdgeInsetsMake(20, 0, 10, 0);
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _scrollView.alwaysBounceVertical = YES;
         [self addSubview:_scrollView];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
-
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)setFormView:(FKFormView *)formView {
     if (_formView) {
         [_formView removeFromSuperview];
@@ -41,7 +47,6 @@
     _formView = formView;
     [_scrollView addSubview:_formView];
 }
-
 - (void)layoutSubviews {
     _scrollView.frame = self.bounds;
     
@@ -52,10 +57,21 @@
     _scrollView.contentSize = CGSizeMake(formWidth, formHeight);
     _scrollView.contentInset = _contentInset;
 }
-
 - (void)setContentInset:(UIEdgeInsets)contentInset {
     _contentInset = contentInset;
     _scrollView.contentInset = _contentInset;
+}
+-(void)updateLayoutForKeyboardSize:(CGSize)kbSize {
+    self.contentInset = UIEdgeInsetsMake(20, 0, kbSize.height, 0);
+}
+-(void)keyboardWillChangeFrame:(NSNotification *)notification {
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
+    [self updateLayoutForKeyboardSize:keyboardFrameEndRect.size];
+}
+-(void)keyboardWillHide:(NSNotification *)notification {
+    [self updateLayoutForKeyboardSize:CGSizeZero];
 }
 @end
 
