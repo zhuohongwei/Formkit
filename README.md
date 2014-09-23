@@ -2,7 +2,9 @@
 
 An Objective-C library for creating forms easily.
 
-##Creating a form
+##Quick start
+
+###Creating a form
 
 We have included `FKFormViewController`, a convenient UIViewController subclass to create and show a form. 
 
@@ -39,7 +41,7 @@ passwordField.textField.secureTextEntry = YES;
 ```
 
 
-##Submitting the form
+###Submitting the form
 `FKFormViewController` provides methods which you can override for handling form submission and cancellation actions.
 ```
 //Methods to override in subclass, do not call directly
@@ -54,3 +56,87 @@ For example, you can do the following in your subclass:
     NSDictionary *allFormValues = [self.form allValues];
 }
 ```
+
+
+##Formkit Design
+
+###Formkit class hierachy
+
+The two base classes of Formkit are `FKFormItem` and `FKFormItemView`. Each `FKFormItem` subclass is related to a `FKFormItemView` subclass.
+
+- `FKFormItem`
+    - `FKForm`
+    - `FKRowItem`
+    - `FKColumnItem`
+    - `FKInputItem`
+        - `FKTextFieldItem`
+        - `FKSelectFieldItem`
+        - Other input __model__ classes...
+
+- `FKFormItemView`
+    - `FKFormView`
+    - `FKFormRowView`
+    - `FKFormColumnView`
+    - `FKInputControlView`
+        - `FKTextFieldView`
+        - `FKSelectFieldView`
+        - Other input __view__ classes
+ 
+###What makes up a form
+
+In Formkit, each form is represented as a tree with the root being an instance of `FKForm`.
+
+An `FKForm` contains 1..N `FKRowItem`s representing rows.
+
+Each `FKRowItem` contains 1..N `FKColumnItem`s representing columns.
+
+Each `FKColumnItem` contains a single `FKInputItem` subclass object representing an input field.
+
+###Extending formkit
+
+####writing your own input controls
+
+As an example, let's implement a text area input control, `FKSampleTextAreaItem`.
+
+Firstly, subclass `FKInputItem`, override `viewForItem`.
+```
+@interface FKSampleTextAreaItem : FKInputItem
+```
+
+In the implementation, override `viewForItem` to return an instance of the view class for this input control.
+```
+-(FKFormItemView *)viewForItem {
+    return [FKSampleTextAreaView new];
+}
+```
+
+Secondly, subclass `FKInputControlView`.
+```
+@interface FKSampleTextAreaView : FKInputControlView
+```
+
+In the implementation, override `heightForWidth:` and `reload` methods.
+```
+-(CGFloat)heightForWidth:(CGFloat)width {
+    return kTextAreaViewHeight;
+}
+
+-(void)reload {
+    
+    FKSampleTextAreaItem *input = (FKSampleTextAreaItem *)self.item;
+    _fieldLabel.text = input.label;
+    _textView.text = input.value;
+    
+    if (input.disabled) {
+        _textView.editable = NO;
+        _fieldLabel.textColor = [UIColor lightGrayColor];
+    } else {
+        _textView.editable = YES;
+        _fieldLabel.textColor = self.tintColor;
+    }
+    
+    [self setNeedsLayout];
+}
+```
+
+The full source code for `FKSampleTextAreaItem` and `FKSampleTextAreaView` is included within demos folder of the project.
