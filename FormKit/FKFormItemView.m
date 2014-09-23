@@ -634,8 +634,7 @@ static const CGFloat kInlineSelectFieldOptionSpacing = 8.f;
 
 @end
 
-@interface FKSwitchFieldView ()
-{
+@interface FKSwitchFieldView () {
     FKBorderedView * _bv1;
     FKBorderedView * _bv2;
 }

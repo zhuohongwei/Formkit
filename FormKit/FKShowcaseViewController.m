@@ -7,6 +7,7 @@
 //
 
 #import "FKShowcaseViewController.h"
+#import "FKSampleTextAreaItem.h"
 
 @interface FKShowcaseViewController ()
 
@@ -63,6 +64,12 @@
         FKSwitchFieldItem *switchFieldItem2 = [FKSwitchFieldItem switchFieldItemWithName:@"switchfielditem2" label:@"Switch 2"];
         [row6 addColumnWithItem:switchFieldItem2];
 
+        //----------- FKSampleTextAreaItem
+        FKRowItem *row7 = [form addRow];
+        
+        FKSampleTextAreaItem *sampleTextAreaItem = [FKSampleTextAreaItem textAreaItemWithName:@"sampleTextArea" label:@"Sample Text Area" text:@"This is a sample text area"];
+        [row7 addColumnWithItem:sampleTextAreaItem];
+        
         form.purpose = FKFormPurposeSubmit|FKFormPurposeDelete;
         
         self.form = form;
